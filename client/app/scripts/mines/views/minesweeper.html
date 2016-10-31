@@ -3,8 +3,7 @@
   <h4>{{controller_loaded}}</h4>
 
  <table>
-   <tbody ng-repeat="row in [['M', 1, 0], [2, 2, 1], [1, 'M', 1]] track by $index">
-   <!-- <tbody ng-repeat="row in generate_clues([['M',0,0], [0,0,0], [0,'M',0]]) track by $index"> -->
+   <tbody ng-repeat="row in matrix track by $index">
     <tr>
       <td ng-repeat="element in row track by $index">
         <span ng-model="toggle" ng-class="toggle ? 'show_cell' : 'hide_cell'" ng-click="toggle=true; boomCheck(element)">{{element}}</span>

@@ -5,9 +5,12 @@ angular.module('Minesweeper')
 
   $scope.controller_loaded = 'Minesweeper loaded!';
 
+  $scope.matrix = [['M', 1, 0], [2, 2, 1], [1, 'M', 1]];
+
   $scope.boomCheck = function(element) {
     if (element === 'M') {
       window.alert('BOOM BOOM game over !!');
+      return true;
     }
   };
 

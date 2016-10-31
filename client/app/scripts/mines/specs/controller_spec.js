@@ -19,6 +19,14 @@ describe('Controller: minesweeper', function () {
       expect(scope.controller_loaded).toContain('loaded');
     });
 
+    it('checks if a matrix is a list', function () {
+      expect(Object.prototype.toString.call(scope.matrix)).toContain('Array');
+    });
+
+    it('checks if boomCheck("M") is true', function () {
+      expect(scope.boomCheck('M')).toBe(true);
+    });
+
     it('check if "generate_clues(matrix)" give correct clues', function () {
       var testMatrix;
       // test the matrix given in the kata
