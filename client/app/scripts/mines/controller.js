@@ -4,6 +4,13 @@ angular.module('Minesweeper')
 .controller('minesweeper', function ($scope) {
 
   $scope.controller_loaded = 'Minesweeper loaded!';
+
+  $scope.boomCheck = function(element) {
+    if (element === 'M') {
+      alert('BOOM BOOM game over !!');
+    }
+  };
+
   $scope.generate_clues = function(matrix) {
     var x_len = matrix.length;
     var y_len = matrix[0].length;
