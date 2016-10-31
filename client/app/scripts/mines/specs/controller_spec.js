@@ -39,6 +39,10 @@ describe('Controller: minesweeper', function () {
       testMatrix = [[0,0,0], [0,0,0], [0,0,0]];
       expect(scope.generate_clues(testMatrix))
         .toEqual([[0,0,0], [0,0,0], [0,0,0]]);
+      // 1 mine in every corner
+      testMatrix = [['M',0,'M'], [0,0,0], ['M',0,'M']];
+      expect(scope.generate_clues(testMatrix))
+        .toEqual([['M',2,'M'], [2,4,2], ['M',2,'M']]);
     });
   });
 
