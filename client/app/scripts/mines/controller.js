@@ -2,53 +2,61 @@
 
 angular.module('Minesweeper')
 .controller('minesweeper', function ($scope) {
-  // $scope.controller_loaded = [['M', 1, 0], [2, 2, 1], [1, 'M', 1]];
 
-  $scope.matrix = [['M', 0, 0], [0, 0, 0], [0, 'M', 0]];
+  $scope.controller_loaded = 'Minesweeper loaded!';
 
-  $scope.test_click = function(x, y) {
-    return $scope.matrix[x][y];
-  };
-
-  $scope.mines_around_position = function(matrix) {
-    console.log(matrix);
+  $scope.generate_clues = function(matrix) {
+    var x_len = matrix.length;
+    var y_len = matrix[0].length;
     matrix.forEach(function(row, x) {
       row.forEach(function(element, y){
         if(element === 'M') {
-          console.log(element, x, y);
-          if ( (x-1) >= 0 && (y-1) >= 0) {
-           $scope.matrix[x-1][y-1] += 1;
-         }
-         if ( (x-1) >= 0 && (y) >= 0) {
-          $scope.matrix[x-1][y] += 1;
-         }
-         if ( (x-1) >= 0 && (y+1) <= 3) {
-          $scope.matrix[x-1][y+1] += 1;
-         }
-         if ( (x) >= 0 && (y-1) >= 0) {
-          $scope.matrix[x][y-1] += 1;
-         }
-         if ( (x) >= 0 && (y+1) <= 3) {
-          $scope.matrix[x][y+1] += 1;
-         }
-         if ( (x+1) <= 3 && (y-1) >= 0) {
-          $scope.matrix[x+1][y-1] += 1;
-         }
-         if ( (x+1) <= 3 && (y) >= 0) {
-          $scope.matrix[x+1][y] += 1;
-         }
-         if ( (x+1) >= 0 && (y+1) >= 0) {
-          $scope.matrix[x+1][y+1] += 1;
-         }
+          if (x-1 >= 0 && y-1 >= 0) {
+            if(matrix[x-1][y-1] !== 'M'){
+              matrix[x-1][y-1] += 1;
+            }
+          }
+          if (x-1 >= 0) {
+            if(matrix[x-1][y] !== 'M'){
+              matrix[x-1][y]+= 1;
+            }
+          }
+          if (x-1 >= 0 && y+1 < y_len) {
+            if(matrix[x-1][y+1] !== 'M'){
+              matrix[x-1][y+1] += 1;
+            }
+          }
+          if ( y-1 >= 0) {
+            if(matrix[x][y-1] !== 'M'){
+              matrix[x][y-1] += 1;
+            }
+          }
+          if (y+1 < y_len) {
+            if(matrix[x][y+1] !== 'M'){
+              matrix[x][y+1] += 1;
+            }
+          }
+          if (x+1 < x_len &&  y-1 >= 0) {
+            if(matrix[x+1][y-1] !== 'M'){
+              matrix[x+1][y-1] += 1;
+            }
+          }
+          if (x+1 < x_len) {
+            if(matrix[x+1][y] !== 'M'){
+              matrix[x+1][y] += 1;
+            }
+          }
+          if (x+1 < x_len && y+1 < y_len) {
+            if(matrix[x+1][y+1] !== 'M'){
+              matrix[x+1][y+1] += 1;
+            }
+          }
         }
       });
     });
-    console.log(matrix);
     return matrix;
   };
 })
-
-
 .config(function ($routeProvider) {
   $routeProvider
   .when('/minesweeper', {

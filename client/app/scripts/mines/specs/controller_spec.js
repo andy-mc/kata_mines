@@ -14,35 +14,29 @@ describe('Controller: minesweeper', function () {
   }));
 
   describe('On instance', function () {
-    // it('should set "controller_loaded" variable in scope', function () {
-    //   expect(scope.controller_loaded).toEqual([[1, 0, 0], [0, 0, 0], [0, 1, 0]]);
-    // });
-    // [[1, 0, 0], [0, 0, 0], [0, 1, 0]]
-    var testMatrix = [['M', 0, 0], [0, 0, 0], [0, 'M', 0]];
 
-    it('should verify if matrix is a 3x3 and has 2 mines', function () {
-      expect(scope.matrix).toEqual(testMatrix);
+    it('should set "controller_loaded" variable in scope', function () {
+      expect(scope.controller_loaded).toContain('loaded');
     });
 
-    it('test_click on point 0 0', function() {
-      expect(scope.test_click(0,0)).toBe('M');
-    });
+    it('check if "generate_clues(matrix)" give correct clues', function () {
+      var testMatrix;
+      // test the matrix given in the kata
+      testMatrix = [['M', 0, 0], [0, 0, 0], [0, 'M', 0]];
+      expect(scope.generate_clues(testMatrix))
+        .toEqual([ ['M', 1, 0], [2, 2, 1], [1, 'M', 1] ]);
+      // matrix 2x2 with 1 mine("M")
+      testMatrix = [[0, 'M'], [0, 0]];
+      expect(scope.generate_clues(testMatrix))
+      .toEqual([[1,'M'],[1,1]]);
 
-    it('should render all map', function () {
-      expect(scope.mines_around_position(testMatrix).toEqual([['M', 1, 0], [2, 2, 1], [1, 'M', 1]]));
+      // << Extreme Cases >>
+      // All full of mines
+      testMatrix = [['M', 'M', 'M'], ['M', 'M', 'M'], ['M', 'M', 'M']];
+      expect(scope.generate_clues(testMatrix))
+        .toEqual([['M', 'M', 'M'], ['M', 'M', 'M'], ['M', 'M', 'M']]);
     });
-
-    // xit('point 1, 2 has to return 1', function() {
-    //   expect(scope.mines_around_position(1, 2)).toBe(1);
-    // });
   });
-
-  // describe('For minesweeper', function () {
-  //   it('it will test in matrix A has corrects numbers', function () {
-  //     expect(scope.controller_loaded).toContain()
-  //   });
-  //
-  // });
 
   describe('when going to /minesweeper', function () {
 
@@ -73,5 +67,4 @@ describe('Controller: minesweeper', function () {
       expect(route.current.controller).toBe('minesweeper');
     });
   });
-
 });
