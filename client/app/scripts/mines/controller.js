@@ -4,7 +4,6 @@ angular.module('Minesweeper')
 .controller('minesweeper', function ($scope) {
 
   $scope.controller_loaded = 'Minesweeper loaded!';
-
   $scope.generate_clues = function(matrix) {
     var x_len = matrix.length;
     var y_len = matrix[0].length;
