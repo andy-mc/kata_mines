@@ -7,7 +7,7 @@ angular.module('Minesweeper')
 
   $scope.boomCheck = function(element) {
     if (element === 'M') {
-      alert('BOOM BOOM game over !!');
+      window.alert('BOOM BOOM game over !!');
     }
   };
 
