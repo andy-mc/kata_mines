@@ -14,57 +14,70 @@ angular.module('Minesweeper')
     }
   };
 
-  $scope.generate_clues = function(matrix) {
-    var x_len = matrix.length;
-    var y_len = matrix[0].length;
+  var getMinesPositions = function (matrix) {
+    var mines_positions = [];
     matrix.forEach(function(row, x) {
-      row.forEach(function(element, y){
-        if(element === 'M') {
-          if (x-1 >= 0 && y-1 >= 0) {
-            if(matrix[x-1][y-1] !== 'M'){
-              matrix[x-1][y-1] += 1;
-            }
-          }
-          if (x-1 >= 0) {
-            if(matrix[x-1][y] !== 'M'){
-              matrix[x-1][y]+= 1;
-            }
-          }
-          if (x-1 >= 0 && y+1 < y_len) {
-            if(matrix[x-1][y+1] !== 'M'){
-              matrix[x-1][y+1] += 1;
-            }
-          }
-          if ( y-1 >= 0) {
-            if(matrix[x][y-1] !== 'M'){
-              matrix[x][y-1] += 1;
-            }
-          }
-          if (y+1 < y_len) {
-            if(matrix[x][y+1] !== 'M'){
-              matrix[x][y+1] += 1;
-            }
-          }
-          if (x+1 < x_len &&  y-1 >= 0) {
-            if(matrix[x+1][y-1] !== 'M'){
-              matrix[x+1][y-1] += 1;
-            }
-          }
-          if (x+1 < x_len) {
-            if(matrix[x+1][y] !== 'M'){
-              matrix[x+1][y] += 1;
-            }
-          }
-          if (x+1 < x_len && y+1 < y_len) {
-            if(matrix[x+1][y+1] !== 'M'){
-              matrix[x+1][y+1] += 1;
-            }
-          }
+      row.forEach(function(element, y) {
+        if (element === 'M') {
+            mines_positions.push([x,y]);
         }
       });
     });
+    return mines_positions;
+  };
+
+  $scope.generate_clues = function(matrix) {
+    var x_len = matrix.length;
+    var y_len = matrix[0].length;
+    var mines = getMinesPositions(matrix);
+    mines.forEach(function(mine) {
+      var x = mine[0];
+      var y = mine[1];
+
+      if (x-1 >= 0 && y-1 >= 0) {
+        if(matrix[x-1][y-1] !== 'M'){
+          matrix[x-1][y-1] += 1;
+        }
+      }
+      if (x-1 >= 0) {
+        if(matrix[x-1][y] !== 'M'){
+          matrix[x-1][y]+= 1;
+        }
+      }
+      if (x-1 >= 0 && y+1 < y_len) {
+        if(matrix[x-1][y+1] !== 'M'){
+          matrix[x-1][y+1] += 1;
+        }
+      }
+      if ( y-1 >= 0) {
+        if(matrix[x][y-1] !== 'M'){
+          matrix[x][y-1] += 1;
+        }
+      }
+      if (y+1 < y_len) {
+        if(matrix[x][y+1] !== 'M'){
+          matrix[x][y+1] += 1;
+        }
+      }
+      if (x+1 < x_len &&  y-1 >= 0) {
+        if(matrix[x+1][y-1] !== 'M'){
+          matrix[x+1][y-1] += 1;
+        }
+      }
+      if (x+1 < x_len) {
+        if(matrix[x+1][y] !== 'M'){
+          matrix[x+1][y] += 1;
+        }
+      }
+      if (x+1 < x_len && y+1 < y_len) {
+        if(matrix[x+1][y+1] !== 'M'){
+          matrix[x+1][y+1] += 1;
+        }
+      }
+    });
     return matrix;
   };
+
 })
 .config(function ($routeProvider) {
   $routeProvider
