@@ -27,7 +27,7 @@ angular.module('Minesweeper')
   };
 
   $scope.generate_clues = function(matrix) {
-    var x_len = matrix.length;
+    var matrix_len = matrix.length;
     var y_len = matrix[0].length;
 
     var mines = getMinesPositions(matrix);
@@ -50,13 +50,13 @@ angular.module('Minesweeper')
       if (y+1 < y_len) {
           matrix[x][y+1] += 1;
       }
-      if (x+1 < x_len &&  y-1 >= 0) {
+      if (x+1 < matrix_len &&  y-1 >= 0) {
           matrix[x+1][y-1] += 1;
       }
-      if (x+1 < x_len) {
+      if (x+1 < matrix_len) {
           matrix[x+1][y] += 1;
       }
-      if (x+1 < x_len && y+1 < y_len) {
+      if (x+1 < matrix_len && y+1 < y_len) {
           matrix[x+1][y+1] += 1;
       }
     });
