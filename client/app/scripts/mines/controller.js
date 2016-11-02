@@ -29,55 +29,46 @@ angular.module('Minesweeper')
   $scope.generate_clues = function(matrix) {
     var x_len = matrix.length;
     var y_len = matrix[0].length;
+
     var mines = getMinesPositions(matrix);
     mines.forEach(function(mine) {
       var x = mine[0];
       var y = mine[1];
 
       if (x-1 >= 0 && y-1 >= 0) {
-        if(matrix[x-1][y-1] !== 'M'){
           matrix[x-1][y-1] += 1;
-        }
       }
       if (x-1 >= 0) {
-        if(matrix[x-1][y] !== 'M'){
           matrix[x-1][y]+= 1;
-        }
       }
       if (x-1 >= 0 && y+1 < y_len) {
-        if(matrix[x-1][y+1] !== 'M'){
           matrix[x-1][y+1] += 1;
-        }
       }
       if ( y-1 >= 0) {
-        if(matrix[x][y-1] !== 'M'){
           matrix[x][y-1] += 1;
-        }
       }
       if (y+1 < y_len) {
-        if(matrix[x][y+1] !== 'M'){
           matrix[x][y+1] += 1;
-        }
       }
       if (x+1 < x_len &&  y-1 >= 0) {
-        if(matrix[x+1][y-1] !== 'M'){
           matrix[x+1][y-1] += 1;
-        }
       }
       if (x+1 < x_len) {
-        if(matrix[x+1][y] !== 'M'){
           matrix[x+1][y] += 1;
-        }
       }
       if (x+1 < x_len && y+1 < y_len) {
-        if(matrix[x+1][y+1] !== 'M'){
           matrix[x+1][y+1] += 1;
-        }
       }
+    });
+    /* Clean matrix where mines overlap given values like
+    M1111 and replace it for a single M */
+    mines.forEach(function(mine) {
+      var x = mine[0];
+      var y = mine[1];
+      matrix[x][y] = 'M';
     });
     return matrix;
   };
-
 })
 .config(function ($routeProvider) {
   $routeProvider
